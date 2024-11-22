@@ -4,7 +4,7 @@ namespace earfest.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ValuesController : ControllerBase
+public class CategoryController : ControllerBase
 {
     // GET: api/Values
     [HttpGet]

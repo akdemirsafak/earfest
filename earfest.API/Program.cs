@@ -1,7 +1,9 @@
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
+using earfest.API.Features.Categories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +29,13 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddEntityFrameworkStores<EarfestDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CategoryCreate.CommandHandler).Assembly);
+    //cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
+});
 
+builder.Services.AddValidatorsFromAssembly(typeof(CategoryCreate.CommandValidator).Assembly);
 
 var app = builder.Build();
 
