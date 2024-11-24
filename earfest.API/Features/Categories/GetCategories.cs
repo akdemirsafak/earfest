@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace earfest.API.Features.Categories;
 
-public static class CategoryGetAll
+public static class GetCategories
 {
     public record Query() : IRequest<AppResult<List<CategoryResponse>>>;
 

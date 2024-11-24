@@ -1,36 +1,36 @@
 ﻿using earfest.API.Base;
-using earfest.API.Features.Categories;
+using earfest.API.Features.Moods;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-public class CategoryController : EarfestBaseController
+public class MoodController : EarfestBaseController
 {
-    public CategoryController(IMediator mediator) : base(mediator)
+    public MoodController(IMediator mediator) : base(mediator)
     {
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var result = await _mediator.Send(new GetCategories.Query());
+        var result = await _mediator.Send(new GetMoods.Query());
         return CreateActionResult(result);
     }
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(string id)
     {
-        var result = await _mediator.Send(new GetCategoryById.Query(id));
+        var result = await _mediator.Send(new GetMoodById.Query(id));
         return CreateActionResult(result);
     }
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCategory.Command command)
+    public async Task<IActionResult> Create([FromBody] CreateMood.Command command)
     {
         var result = await _mediator.Send(command);
         return CreateActionResult(result);
     }
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, [FromBody] UpdateCategory.Command command)
+    public async Task<IActionResult> Update(string id, [FromBody] UpdateMood.Command command)
     {
         var updatedCommand = command with {Id = id};
         var result = await _mediator.Send(updatedCommand);
@@ -39,7 +39,7 @@ public class CategoryController : EarfestBaseController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await _mediator.Send(new DeleteCategory.Command(id));
+        var result = await _mediator.Send(new DeleteMood.Command(id));
         return CreateActionResult(result);
     }
 }

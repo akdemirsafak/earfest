@@ -7,7 +7,7 @@ using MediatR;
 
 namespace earfest.API.Features.Categories;
 
-public static class CategoryGetById
+public static class GetCategoryById
 {
     public record Query(string Id) : IRequest<AppResult<CategoryResponse>>;
     public class QueryHandler : IRequestHandler<Query, AppResult<CategoryResponse>>
