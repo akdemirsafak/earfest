@@ -1,13 +1,17 @@
 ﻿
+using System.ComponentModel;
+
 namespace earfest.API.Domain.Entities;
 
 public class Playlist : AbstractEntity, IAuditableEntity
 {
+    [DisplayName("Çalma listesi Adı")]
     public string Name { get; set; }
+    [DisplayName("Açıklama")]
     public string? Description { get; set; }
     public string? ImageUrl { get; set; }
+    [DisplayName("İçerikler")]
     public virtual IList<Content> Contents { get; set; }
-
     public DateTime CreatedAt { get; set; }
     public string? CreatedBy { get; set; }
     public DateTime? UpdatedAt { get; set; }
