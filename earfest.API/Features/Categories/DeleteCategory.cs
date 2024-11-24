@@ -5,7 +5,7 @@ using MediatR;
 
 namespace earfest.API.Features.Categories;
 
-public static class CategoryDelete
+public static class DeleteCategory
 {
     public record Command(string id) : IRequest<AppResult<NoContentDto>>;
 

@@ -34,7 +34,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 
 builder.Services.AddMediatR(cfg =>
 {
-    cfg.RegisterServicesFromAssembly(typeof(CategoryCreate.CommandHandler).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateCategory.CommandHandler).Assembly);
     //cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
 });
 

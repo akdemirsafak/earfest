@@ -1,5 +1,6 @@
 ﻿using earfest.API.Base;
 using earfest.API.Domain.DbContexts;
+using earfest.API.Domain.Entities;
 using earfest.API.Models.Category;
 using FluentValidation;
 using Mapster;
@@ -7,23 +8,20 @@ using MediatR;
 
 namespace earfest.API.Features.Categories;
 
-public static class CategoryUpdate
+public static class CreateCategory
 {
-    public record Command(string Id, string Name, string? Description, string? ImageUrl) : IRequest<AppResult<CategoryResponse>>;
+    public record Command(string Name, string? Description, string? ImageUrl) : IRequest<AppResult<CategoryResponse>>;
 
     public class CommandHandler(EarfestDbContext _dbContext) : IRequestHandler<Command, AppResult<CategoryResponse>>
     {
         public async Task<AppResult<CategoryResponse>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FindAsync(request.Id);
-            if (category is null)
-                throw new Exception("Category not found");
-            category.Name = request.Name;
-            category.Description = request.Description;
-            category.ImageUrl = request.ImageUrl;
-            await _dbContext.SaveChangesAsync();
+            var entity = request.Adapt<Category>();
 
-            return AppResult<CategoryResponse>.Success(category.Adapt<CategoryResponse>(), 200);
+            await _dbContext.Categories.AddAsync(entity);
+
+            await _dbContext.SaveChangesAsync();
+            return AppResult<CategoryResponse>.Success(entity.Adapt<CategoryResponse>(), 200);
         }
     }
 
@@ -31,8 +29,6 @@ public static class CategoryUpdate
     {
         public CommandValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEmpty();
             RuleFor(x => x.Name)
                 .NotNull()
                 .NotEmpty()
