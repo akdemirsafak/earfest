@@ -1,39 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using earfest.API.Base;
+using earfest.API.Features.Categories;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CategoryController : ControllerBase
+public class CategoryController : EarfestBaseController
 {
-    // GET: api/Values
+    public CategoryController(IMediator mediator) : base(mediator)
+    {
+    }
+
     [HttpGet]
-    public IActionResult Get()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(new string[] { "value1", "value2" });
+        var result = await _mediator.Send(new CategoryGetAll.Query());
+        return CreateActionResult(result);
     }
-    // GET: api/Values/5
-    [HttpGet("{id}", Name = "Get")]
-    public IActionResult Get(int id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(string id)
     {
-        return Ok("value");
+        var result = await _mediator.Send(new CategoryGetById.Query(id));
+        return CreateActionResult(result);
     }
-    // POST: api/Values
     [HttpPost]
-    public IActionResult Post([FromBody] string value)
+    public async Task<IActionResult> Create([FromBody] CategoryCreate.Command command)
     {
-        return Ok();
+        var result = await _mediator.Send(command);
+        return CreateActionResult(result);
     }
-    // PUT: api/Values/5
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] string value)
+    public async Task<IActionResult> Update(string id, [FromBody] CategoryUpdate.Command command)
     {
-        return Ok();
+        var updatedCommand = command with {Id = id};
+        var result = await _mediator.Send(updatedCommand);
+        return CreateActionResult(result);
     }
-    // DELETE: api/ApiWithActions/5
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(string id)
     {
-        return Ok();
+        var result = await _mediator.Send(new CategoryDelete.Command(id));
+        return CreateActionResult(result);
     }
 }

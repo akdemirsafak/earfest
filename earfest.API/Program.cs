@@ -4,6 +4,9 @@ using earfest.API.Features.Categories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
+using MediatR;
+using earfest.API.Behaviours;
+using earfest.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,10 +38,13 @@ builder.Services.AddMediatR(cfg =>
     //cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
 });
 
-builder.Services.AddValidatorsFromAssembly(typeof(CategoryCreate.CommandValidator).Assembly);
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+//builder.Services.AddValidatorsFromAssembly(typeof(CategoryCreate.CommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
-
+app.UseGlobalExceptionMiddleware();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
