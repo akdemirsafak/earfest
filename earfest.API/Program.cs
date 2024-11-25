@@ -7,6 +7,7 @@ using FluentValidation;
 using MediatR;
 using earfest.API.Behaviours;
 using earfest.API.Middlewares;
+using earfest.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+
+builder.Services.AddScoped<IEmailService,EmailService>();
 
 builder.Services.AddDbContext<EarfestDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext")));
