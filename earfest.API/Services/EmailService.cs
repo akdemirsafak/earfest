@@ -1,28 +1,32 @@
-﻿using System.Net;
+﻿using earfest.API.Models;
+using Microsoft.Extensions.Options;
+using System.Net;
 using System.Net.Mail;
 
 namespace earfest.API.Services;
 
 public class EmailService : IEmailService
 {
-    private readonly IConfiguration _configuration;
-    public EmailService(IConfiguration configuration)
+    private readonly EmailSettings _emailSettings;
+    public EmailService(IOptions<EmailSettings> options)
     {
-        _configuration = configuration;
+        _emailSettings = options.Value;
     }
 
     public async Task SendEmailAsync(string email, string subject, string body)
     {
-        var smtpClient = new SmtpClient(_configuration["Smtp:Host"])
-        {
-            Port = int.Parse(_configuration["Smtp:Port"]),
-            Credentials = new NetworkCredential(_configuration["Smtp:Username"], _configuration["Smtp:Password"]),
-            EnableSsl = bool.Parse(_configuration["Smtp:EnableSsl"]),
-        };
+        var smtpClient = new SmtpClient();
+        smtpClient.Host = _emailSettings.Host;
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.EnableSsl = true;
+        smtpClient.Port = 587;
+        smtpClient.Credentials = new NetworkCredential(_emailSettings.Email, _emailSettings.Password);
+
 
         var mailMessage = new MailMessage
         {
-            From = new MailAddress(_configuration["Smtp:From"]),
+            From = new MailAddress(_emailSettings.Email),
             Subject = subject,
             Body = body,
             IsBodyHtml = true,

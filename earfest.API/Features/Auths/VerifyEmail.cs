@@ -10,12 +10,12 @@ namespace earfest.API.Features.Auths;
 public static class VerifyEmail
 {
     public record Command(string Token) : IRequest<AppResult<NoContentDto>>;
-  
+
     public class CommandHandler : IRequestHandler<Command, AppResult<NoContentDto>>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
-        public CommandHandler(UserManager<AppUser> userManager, 
+        public CommandHandler(UserManager<AppUser> userManager,
             ITokenService tokenService)
         {
             _userManager = userManager;
@@ -23,9 +23,10 @@ public static class VerifyEmail
         }
         public async Task<AppResult<NoContentDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(_tokenService.GetEmailFromToken(request.Token));
+
+            var user = await _userManager.FindByEmailAsync(""); // jwt'den mail adresine veya id'sine erişerek burada user'ı alalım.
             if (user == null) return AppResult<NoContentDto>.Fail("No user found with this email");
-            var result = await _userManager.ConfirmEmailAsync(user, _tokenService.GetToken(request.Token));
+            var result = await _userManager.ConfirmEmailAsync(user, "");
             return result.Succeeded ? AppResult<NoContentDto>.Success() : AppResult<NoContentDto>.Fail("Failed to verify email");
         }
     }

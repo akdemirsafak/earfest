@@ -10,13 +10,13 @@ namespace earfest.API.Features.Auths;
 
 public static class Login
 {
-    public record Query(string Email, string Password) : IRequest<AppResult<TokenResponse>>;
-    public class QueryHandler : IRequestHandler<Query, AppResult<TokenResponse>>
+    public record Query(string Email, string Password) : IRequest<AppResult<AppTokenResponse>>;
+    public class QueryHandler : IRequestHandler<Query, AppResult<AppTokenResponse>>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
-        public QueryHandler(UserManager<AppUser> userManager, 
+        public QueryHandler(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             ITokenService tokenService)
         {
@@ -24,21 +24,15 @@ public static class Login
             _signInManager = signInManager;
             _tokenService = tokenService;
         }
-        public async Task<AppResult<TokenResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AppResult<AppTokenResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null) return AppResult<TokenResponse>.Fail("Invalid email or password");
+            if (user == null) return AppResult<AppTokenResponse>.Fail("Invalid email or password");
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-            if (!result.Succeeded) return AppResult<TokenResponse>.Fail("Invalid email or password");
+            if (!result.Succeeded) return AppResult<AppTokenResponse>.Fail("Invalid email or password");
 
-            //var token = _tokenService.GetToken(user);
-            return AppResult<TokenResponse>.Success(new TokenResponse
-            {
-                Token = "",
-                RefreshToken = "",
-                Expires = DateTime.Now.AddDays(7),
-                RefreshTokenExpires = DateTime.Now.AddDays(30)
-            });
+            var token = await _tokenService.CreateTokenAsync(user);
+            return AppResult<AppTokenResponse>.Success(token);
         }
     }
     public class QueryValidator : AbstractValidator<Query>

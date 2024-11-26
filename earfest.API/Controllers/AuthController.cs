@@ -43,19 +43,7 @@ public class AuthController : EarfestBaseController
         return CreateActionResult(result);
     }
 
-    [HttpPost("reset-password")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPassword.Command command)
-    {
-        var result = await _mediator.Send(command);
-        return CreateActionResult(result);
-    }
 
-    [HttpPost("change-password")]
-    public async Task<IActionResult> ChangePassword([FromBody] ChangePassword.Command command)
-    {
-        var result = await _mediator.Send(command);
-        return CreateActionResult(result);
-    }
 
     [HttpPost("verify-email")]
     public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmail.Command command)

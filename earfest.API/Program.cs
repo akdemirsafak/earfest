@@ -1,13 +1,17 @@
+using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
 using earfest.API.Features.Categories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using earfest.API.Middlewares;
+using earfest.API.Models;
+using earfest.API.Services;
 using FluentValidation;
 using MediatR;
-using earfest.API.Behaviours;
-using earfest.API.Middlewares;
-using earfest.API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +21,6 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-
-builder.Services.AddScoped<IEmailService,EmailService>();
 
 builder.Services.AddDbContext<EarfestDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext")));
@@ -35,11 +37,40 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddEntityFrameworkStores<EarfestDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+var tokenOptions = builder.Configuration.GetSection("AppTokenOptions").Get<AppTokenOptions>();
+builder.Services.Configure<AppTokenOptions>(builder.Configuration.GetSection("AppTokenOptions"));
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = tokenOptions!.Issuer,
+        ValidAudiences = tokenOptions.Audiences,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
+    };
+});
+
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CreateCategory.CommandHandler).Assembly);
     //cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
 });
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 
 
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));

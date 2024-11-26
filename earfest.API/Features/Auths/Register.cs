@@ -7,7 +7,7 @@ namespace earfest.API.Features.Auths;
 
 public static class Register
 {
-    public record Command(string Email, string Password, string FirstName, string LastName) : IRequest<AppResult<NoContentDto>>;
+    public record Command(string Email, string Password, string? FirstName, string? LastName) : IRequest<AppResult<NoContentDto>>;
     public class CommandHandler : IRequestHandler<Command, AppResult<NoContentDto>>
     {
         private readonly UserManager<AppUser> _userManager;
@@ -21,6 +21,7 @@ public static class Register
         {
             var user = new AppUser
             {
+                Id = Guid.NewGuid().ToString(),
                 Email = request.Email,
                 UserName = request.Email,
                 FirstName = request.FirstName,

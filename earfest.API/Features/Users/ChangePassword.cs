@@ -3,7 +3,7 @@ using earfest.API.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace earfest.API.Features.Auths;
+namespace earfest.API.Features.Users;
 
 public static class ChangePassword
 {
