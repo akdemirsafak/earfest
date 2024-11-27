@@ -25,7 +25,7 @@ public static class ForgotPassword
             if (user == null)
                 return AppResult<NoContentDto>.Fail(new List<string> { "User not found" });
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = $"http://localhost:7145/reset-password?email={user.Email}&token={HttpUtility.UrlEncode(token)}";
+            var callbackUrl = $"https://localhost:7145/reset-password?email={user.Email}&token={HttpUtility.UrlEncode(token)}";
             var emailBody = $"<a href='{callbackUrl}'>Reset Password</a>";
             await _emailService.SendEmailAsync(user.Email, "Reset Password", emailBody);
             return AppResult<NoContentDto>.Success();

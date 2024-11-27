@@ -2,6 +2,7 @@ using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
 using earfest.API.Features.Categories;
+using earfest.API.Helpers;
 using earfest.API.Middlewares;
 using earfest.API.Models;
 using earfest.API.Services;
@@ -70,6 +71,9 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUser,CurrentUser>();
 
 
 

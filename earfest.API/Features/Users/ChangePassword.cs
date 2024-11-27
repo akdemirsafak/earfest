@@ -12,7 +12,8 @@ public static class ChangePassword
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        public CommandHandler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public CommandHandler(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
