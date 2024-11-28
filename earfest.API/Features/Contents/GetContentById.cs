@@ -10,10 +10,10 @@ namespace earfest.API.Features.Contents;
 
 public static class GetContentById
 {
-    public record Query(string Id) : IRequest<AppResult<ContentResponse>>;
-    public class QueryHandler(EarfestDbContext _context) : IRequestHandler<Query, AppResult<ContentResponse>>
+    public record Query(string Id) : IRequest<AppResult<ContentByIdResponse>>;
+    public class QueryHandler(EarfestDbContext _context) : IRequestHandler<Query, AppResult<ContentByIdResponse>>
     {
-        public async Task<AppResult<ContentResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AppResult<ContentByIdResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var content = await _context.Contents
                 .Include(x => x.Artists)
@@ -23,8 +23,8 @@ public static class GetContentById
             //.Include(x => x.ContentTags)
             //.ThenInclude(x => x.Tag)
             //.FirstOrDefaultAsync(x => x.Id == request.Id);
-            var response = content.Adapt<ContentResponse>();
-            return AppResult<ContentResponse>.Success(response);
+            var response = content.Adapt<ContentByIdResponse>();
+            return AppResult<ContentByIdResponse>.Success(response);
         }
     }
 
