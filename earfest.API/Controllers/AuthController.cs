@@ -30,12 +30,6 @@ public class AuthController : EarfestBaseController
     //    var result = await _mediator.Send(query);
     //    return CreateActionResult(result);
     //}
-    [HttpPost("logout")]
-    public async Task<IActionResult> Logout([FromBody] Logout.Command command)
-    {
-        var result = await _mediator.Send(command);
-        return CreateActionResult(result);
-    }
 
     [HttpPost("forgot-password")]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassword.Command command)

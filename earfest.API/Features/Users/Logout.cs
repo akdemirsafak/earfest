@@ -3,7 +3,7 @@ using earfest.API.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace earfest.API.Features.Auths;
+namespace earfest.API.Features.Users;
 
 public static class Logout
 {
@@ -13,7 +13,7 @@ public static class Logout
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         public CommandHandler(
-            SignInManager<AppUser> signInManager, 
+            SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager)
         {
             _signInManager = signInManager;
