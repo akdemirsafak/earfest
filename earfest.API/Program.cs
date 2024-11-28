@@ -1,6 +1,7 @@
 using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
+using earfest.API.Domain.Interceptors;
 using earfest.API.Features.Categories;
 using earfest.API.Helpers;
 using earfest.API.Middlewares;
@@ -23,8 +24,14 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 
-builder.Services.AddDbContext<EarfestDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext")));
+builder.Services.AddSingleton<AuditInterceptor>();
+
+builder.Services.AddDbContext<EarfestDbContext>((sp,options) =>
+{
+    var interceptor = sp.GetService<AuditInterceptor>()!;
+    options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext"))
+    .AddInterceptors(interceptor); 
+});
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
 {
