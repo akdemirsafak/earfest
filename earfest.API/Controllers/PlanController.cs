@@ -1,5 +1,4 @@
 ﻿using earfest.API.Base;
-using earfest.API.Features.Categories;
 using earfest.API.Features.Plans;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
