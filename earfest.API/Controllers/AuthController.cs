@@ -1,5 +1,6 @@
 ﻿using earfest.API.Base;
 using earfest.API.Features.Auths;
+using earfest.API.Models.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,13 @@ public class AuthController : EarfestBaseController
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPassword.Command command)
     {
         var result = await _mediator.Send(command);
+        return CreateActionResult(result);
+    }
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request, string email, string token)
+    {
+
+        var result = await _mediator.Send(new ResetPassword.Command(email, token, request.Password));
         return CreateActionResult(result);
     }
 

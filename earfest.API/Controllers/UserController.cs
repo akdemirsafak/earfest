@@ -1,5 +1,4 @@
 ﻿using earfest.API.Base;
-using earfest.API.Features.Auths;
 using earfest.API.Features.Users;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +24,6 @@ public class UserController : EarfestBaseController
         return Ok();
         //Burada kullanıcının profil bilgilerini güncelley
     }
-    [HttpPost("reset-password")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPassword.Command command)
-    {
-        var result = await _mediator.Send(command);
-        return CreateActionResult(result);
-    }
-
     [HttpPost("change-password")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePassword.Command command)
     {
