@@ -8,9 +8,4 @@ public class ContentResponse : BaseResponse
     public string? AudioUrl { get; set; }
     public string? VideoUrl { get; set; }
     public string? Lyrics { get; set; }
- 
-    //public List<AppUser> Artists { get; set; }
-    //public List<Category> Categories { get; set; }
-    //public List<Mood> Moods { get; set; }
-
 }
