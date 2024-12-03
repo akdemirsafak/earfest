@@ -10,16 +10,16 @@ namespace earfest.API.Features.Playlists;
 
 public static class GetPlaylistById 
 {
-    public record Query(string Id) : IRequest<AppResult<PlaylistByIdResponse>>;
-    public class QueryHandler(EarfestDbContext _dbContext) : IRequestHandler<Query, AppResult<PlaylistByIdResponse>>
+    public record Query(string Id) : IRequest<AppResult<PlaylistDetailsResponse>>;
+    public class QueryHandler(EarfestDbContext _dbContext) : IRequestHandler<Query, AppResult<PlaylistDetailsResponse>>
     {
-        public async Task<AppResult<PlaylistByIdResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AppResult<PlaylistDetailsResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var playlist = await _dbContext.Playlists
                 .Include(x=>x.Contents)
                 .FirstOrDefaultAsync(x=>x.Id==request.Id);
            
-            return AppResult<PlaylistByIdResponse>.Success(playlist.Adapt<PlaylistByIdResponse>());
+            return AppResult<PlaylistDetailsResponse>.Success(playlist.Adapt<PlaylistDetailsResponse>());
         }
     }
 

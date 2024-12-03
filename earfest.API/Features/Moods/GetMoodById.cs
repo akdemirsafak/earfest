@@ -9,13 +9,13 @@ namespace earfest.API.Features.Moods;
 
 public static class GetMoodById
 {
-    public record Query(string Id) : IRequest<AppResult<MoodResponse>>;
-    public class QueryHandler(EarfestDbContext _context) : IRequestHandler<Query, AppResult<MoodResponse>>
+    public record Query(string Id) : IRequest<AppResult<MoodDetailsResponse>>;
+    public class QueryHandler(EarfestDbContext _context) : IRequestHandler<Query, AppResult<MoodDetailsResponse>>
     {
-        public async Task<AppResult<MoodResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AppResult<MoodDetailsResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var mood = await _context.Moods.FindAsync(request.Id);
-            return AppResult<MoodResponse>.Success(mood.Adapt<MoodResponse>(),200);
+            return AppResult<MoodDetailsResponse>.Success(mood.Adapt<MoodDetailsResponse>(),200);
         }
     }
 
