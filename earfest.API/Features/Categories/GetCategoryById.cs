@@ -9,8 +9,8 @@ namespace earfest.API.Features.Categories;
 
 public static class GetCategoryById
 {
-    public record Query(string Id) : IRequest<AppResult<CategoryResponse>>;
-    public class QueryHandler : IRequestHandler<Query, AppResult<CategoryResponse>>
+    public record Query(string Id) : IRequest<AppResult<CategoryDetailsResponse>>;
+    public class QueryHandler : IRequestHandler<Query, AppResult<CategoryDetailsResponse>>
     {
         private readonly EarfestDbContext _context;
 
@@ -19,14 +19,14 @@ public static class GetCategoryById
             _context = context;
         }
 
-        public async Task<AppResult<CategoryResponse>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AppResult<CategoryDetailsResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var response = await _context.Categories.FindAsync(request.Id);
             if (response is null)
-                return AppResult<CategoryResponse>.Fail("Category not found");
+                return AppResult<CategoryDetailsResponse>.Fail("Category not found");
 
-            CategoryResponse result = response.Adapt<CategoryResponse>();
-            return AppResult<CategoryResponse>.Success(result);
+            CategoryDetailsResponse result = response.Adapt<CategoryDetailsResponse>();
+            return AppResult<CategoryDetailsResponse>.Success(result);
 
         }
         public class QueryValidator : AbstractValidator<Query>
