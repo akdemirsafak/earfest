@@ -13,6 +13,13 @@ public class UserController : EarfestBaseController
     }
 
     [HttpGet]
+    public async Task<IActionResult> GetUsers()
+    {
+        return CreateActionResult(await _mediator.Send(new GetUsers.Query()));
+        //Burada tüm kullancıları döndüreceğiz.
+    }
+
+    [HttpGet("profile")]
     public async Task<IActionResult> Profile()
     {
         return CreateActionResult(await _mediator.Send(new UserProfile.Query()));
