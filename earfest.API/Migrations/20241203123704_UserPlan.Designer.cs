@@ -12,8 +12,8 @@ using earfest.API.Domain.DbContexts;
 namespace earfest.API.Migrations
 {
     [DbContext(typeof(EarfestDbContext))]
-    [Migration("20241121184032_AddedIdentity")]
-    partial class AddedIdentity
+    [Migration("20241203123704_UserPlan")]
+    partial class UserPlan
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace earfest.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AppUserContent", b =>
+                {
+                    b.Property<string>("ArtistsId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ContentsId")
+                        .HasColumnType("text");
+
+                    b.HasKey("ArtistsId", "ContentsId");
+
+                    b.HasIndex("ContentsId");
+
+                    b.ToTable("AppUserContent");
+                });
 
             modelBuilder.Entity("CategoryContent", b =>
                 {
@@ -195,11 +210,23 @@ namespace earfest.API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<string>("ContentId")
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -208,6 +235,18 @@ namespace earfest.API.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -233,7 +272,14 @@ namespace earfest.API.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("PlanId")
+                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("RefreshTokenExpiration")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
@@ -241,13 +287,17 @@ namespace earfest.API.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("text");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ContentId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -456,6 +506,9 @@ namespace earfest.API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -489,7 +542,24 @@ namespace earfest.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.ToTable("Playlists");
+                });
+
+            modelBuilder.Entity("AppUserContent", b =>
+                {
+                    b.HasOne("earfest.API.Domain.Entities.AppUser", null)
+                        .WithMany()
+                        .HasForeignKey("ArtistsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("earfest.API.Domain.Entities.Content", null)
+                        .WithMany()
+                        .HasForeignKey("ContentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CategoryContent", b =>
@@ -575,13 +645,13 @@ namespace earfest.API.Migrations
 
             modelBuilder.Entity("earfest.API.Domain.Entities.AppUser", b =>
                 {
-                    b.HasOne("earfest.API.Domain.Entities.Content", null)
-                        .WithMany("Artists")
-                        .HasForeignKey("ContentId");
-
-                    b.HasOne("earfest.API.Domain.Entities.Plan", null)
+                    b.HasOne("earfest.API.Domain.Entities.Plan", "Plan")
                         .WithMany("Subscribers")
-                        .HasForeignKey("PlanId");
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("earfest.API.Domain.Entities.Content", b =>
@@ -591,9 +661,16 @@ namespace earfest.API.Migrations
                         .HasForeignKey("PlaylistId");
                 });
 
-            modelBuilder.Entity("earfest.API.Domain.Entities.Content", b =>
+            modelBuilder.Entity("earfest.API.Domain.Entities.Playlist", b =>
                 {
-                    b.Navigation("Artists");
+                    b.HasOne("earfest.API.Domain.Entities.AppUser", null)
+                        .WithMany("Playlists")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("earfest.API.Domain.Entities.AppUser", b =>
+                {
+                    b.Navigation("Playlists");
                 });
 
             modelBuilder.Entity("earfest.API.Domain.Entities.Plan", b =>

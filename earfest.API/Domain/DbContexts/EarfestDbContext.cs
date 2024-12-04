@@ -15,4 +15,14 @@ public class EarfestDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Playlist> Playlists { get; set; }
     public DbSet<Plan> Plans { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        //builder.Entity<IAuditableEntity>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Plan>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Content>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Playlist>().HasQueryFilter(p => !p.IsDeleted);
+        builder.Entity<Mood>().HasQueryFilter(p => !p.IsDeleted);
+        base.OnModelCreating(builder);
+    }
 }
