@@ -269,6 +269,7 @@ namespace earfest.API.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("PlanId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("RefreshToken")
@@ -641,9 +642,13 @@ namespace earfest.API.Migrations
 
             modelBuilder.Entity("earfest.API.Domain.Entities.AppUser", b =>
                 {
-                    b.HasOne("earfest.API.Domain.Entities.Plan", null)
+                    b.HasOne("earfest.API.Domain.Entities.Plan", "Plan")
                         .WithMany("Subscribers")
-                        .HasForeignKey("PlanId");
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Plan");
                 });
 
             modelBuilder.Entity("earfest.API.Domain.Entities.Content", b =>
