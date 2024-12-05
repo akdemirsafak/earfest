@@ -1,4 +1,4 @@
-using earfest.API.Behaviours;
+﻿using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
 using earfest.API.Domain.Interceptors;
@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -88,6 +89,20 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 //builder.Services.AddValidatorsFromAssembly(typeof(CategoryCreate.CommandValidator).Assembly);
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
+
+
+string logdbConnectionString=builder.Configuration.GetConnectionString("LogDbConnection"); // Bu database'i kendimiz oluşturuyoruz.
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .WriteTo.Seq("http://localhost:5341/") // UI için geçerli adres 5341 Seq'in default adresidir. Seq kullanmadan önce docker'da ayağa kaldırmamız gerekir.
+    .WriteTo.MSSqlServer(logdbConnectionString, tableName: "Logs", autoCreateSqlTable: true)
+    .WriteTo.File("logs/myBeatifulLog-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+
 var app = builder.Build();
 app.UseGlobalExceptionMiddleware();
 // Configure the HTTP request pipeline.
@@ -95,6 +110,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
