@@ -1,6 +1,6 @@
 # Earfest 
 
-## Rest API
+### Rest API
 ### Vertical Slice, CQRS, REPR Patterns
 ### Notification Worker Service
 ### Shared Library
