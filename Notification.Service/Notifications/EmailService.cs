@@ -1,16 +1,15 @@
-﻿using earfest.API.Models;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Mail;
 
-namespace earfest.API.Services;
+namespace Notification.Service.Notifications;
 
 public class EmailService : IEmailService
 {
     private readonly EmailSettings _emailSettings;
-    public EmailService(IOptions<EmailSettings> options)
+    public EmailService(IOptions<EmailSettings> settings)
     {
-        _emailSettings = options.Value;
+        _emailSettings = settings.Value;
     }
 
     public async Task SendEmailAsync(string email, string subject, string body)

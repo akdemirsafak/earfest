@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earfest.API", "earfest.API\earfest.API.csproj", "{43D74249-67FF-4E97-8169-E91686C88568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Service", "Notification.Service\Notification.Service.csproj", "{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earfest.Shared", "earfest.Shared\earfest.Shared.csproj", "{6B653604-569D-47D0-AC73-D22F162C1DFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,19 @@ Global
 		{43D74249-67FF-4E97-8169-E91686C88568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D74249-67FF-4E97-8169-E91686C88568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D74249-67FF-4E97-8169-E91686C88568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A69B9A2-C6CB-4F74-944A-4776DCDE08CE}
 	EndGlobalSection
 EndGlobal

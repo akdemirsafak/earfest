@@ -47,8 +47,8 @@ public class AuthController : EarfestBaseController
 
 
 
-    [HttpPost("verify-email")]
-    public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmail.Command command)
+    [HttpPost("confirm-email")]
+    public async Task<IActionResult> ConfirmEmail([FromQuery] ConfirmEmail.Command command)
     {
         var result = await _mediator.Send(command);
         return CreateActionResult(result);

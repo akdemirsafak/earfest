@@ -1,4 +1,4 @@
-﻿namespace earfest.API.Models;
+﻿namespace Notification.Service.Notifications;
 
 public class EmailSettings
 {

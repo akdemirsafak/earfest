@@ -8,6 +8,7 @@ using earfest.API.Middlewares;
 using earfest.API.Models;
 using earfest.API.Services;
 using FluentValidation;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -46,7 +47,6 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
     .AddEntityFrameworkStores<EarfestDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
 var tokenOptions = builder.Configuration.GetSection("AppTokenOptions").Get<AppTokenOptions>();
 builder.Services.Configure<AppTokenOptions>(builder.Configuration.GetSection("AppTokenOptions"));
@@ -78,7 +78,6 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser,CurrentUser>();
@@ -101,6 +100,21 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+
+
+
+builder.Services.AddMassTransit(x => 
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQ:ConnectionString"], h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:UserName"]!);
+            h.Password(builder.Configuration["RabbitMQ:Password"]!);
+        });
+    });
+
+});
 
 
 var app = builder.Build();

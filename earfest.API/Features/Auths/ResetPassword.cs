@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace earfest.API.Features.Auths;
 
-
-
 //Forget Password ile şifremi unuttum ile buraya gelecek.
 public static class ResetPassword
 {
