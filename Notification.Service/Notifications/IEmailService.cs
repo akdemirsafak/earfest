@@ -1,4 +1,4 @@
-﻿namespace earfest.API.Services;
+﻿namespace Notification.Service.Notifications;
 
 public interface IEmailService
 {
