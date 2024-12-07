@@ -1,9 +1,9 @@
 # Earfest 
 
 ## Rest API
-## Vertical Slice, CQRS, REPR Patterns
-## Notification Worker Service
-## Shared Library
+### Vertical Slice, CQRS, REPR Patterns
+### Notification Worker Service
+### Shared Library
 
 ### API and Libraries
 
