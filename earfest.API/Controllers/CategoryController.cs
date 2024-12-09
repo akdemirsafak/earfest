@@ -24,7 +24,7 @@ public class CategoryController : EarfestBaseController
         return CreateActionResult(result);
     }
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateCategory.Command command)
+    public async Task<IActionResult> Create([FromForm] CreateCategory.Command command)
     {
         var result = await _mediator.Send(command);
         return CreateActionResult(result);
