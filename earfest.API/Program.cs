@@ -78,6 +78,7 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser,CurrentUser>();
@@ -118,6 +119,9 @@ builder.Services.AddMassTransit(x =>
 
 
 var app = builder.Build();
+
+app.UseStaticFiles();
+
 app.UseGlobalExceptionMiddleware();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
