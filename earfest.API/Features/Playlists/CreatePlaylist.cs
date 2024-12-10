@@ -21,7 +21,7 @@ public static class CreatePlaylist
         public async Task<AppResult<PlaylistResponse>> Handle(Command request, CancellationToken cancellationToken)
         {
             var playlist = request.Adapt<Playlist>();
-           
+
             await _context.Playlists.AddAsync(playlist);
             await _context.SaveChangesAsync(cancellationToken);
 

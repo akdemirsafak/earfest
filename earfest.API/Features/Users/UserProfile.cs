@@ -12,7 +12,7 @@ public static class UserProfile
 {
     public record Query() : IRequest<AppResult<UserResponse>>;
     public class QueryHandler(UserManager<AppUser> _userManager,
-        ICurrentUser _currentUser): IRequestHandler<Query, AppResult<UserResponse>>
+        ICurrentUser _currentUser) : IRequestHandler<Query, AppResult<UserResponse>>
     {
         public async Task<AppResult<UserResponse>> Handle(Query request, CancellationToken cancellationToken)
         {

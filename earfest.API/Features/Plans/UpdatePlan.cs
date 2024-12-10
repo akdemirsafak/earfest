@@ -9,7 +9,7 @@ namespace earfest.API.Features.Plans;
 
 public static class UpdatePlan
 {
-    public record Command(string Id,UpdatePlanRequest Model) : IRequest<AppResult<PlanResponse>>;
+    public record Command(string Id, UpdatePlanRequest Model) : IRequest<AppResult<PlanResponse>>;
     public class CommandHandler(EarfestDbContext _context) : IRequestHandler<Command, AppResult<PlanResponse>>
     {
         public async Task<AppResult<PlanResponse>> Handle(Command request, CancellationToken cancellationToken)

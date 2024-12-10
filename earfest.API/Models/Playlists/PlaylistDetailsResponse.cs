@@ -2,7 +2,7 @@
 
 namespace earfest.API.Models.Playlists;
 
-public class PlaylistDetailsResponse: BaseResponse
+public class PlaylistDetailsResponse : BaseResponse
 {
     public string Name { get; set; }
     public string? Description { get; set; }

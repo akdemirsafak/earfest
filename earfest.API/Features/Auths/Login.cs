@@ -27,9 +27,11 @@ public static class Login
         public async Task<AppResult<AppTokenResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null) return AppResult<AppTokenResponse>.Fail("Invalid email or password");
+            if (user == null)
+                return AppResult<AppTokenResponse>.Fail("Invalid email or password");
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-            if (!result.Succeeded) return AppResult<AppTokenResponse>.Fail("Invalid email or password"); 
+            if (!result.Succeeded)
+                return AppResult<AppTokenResponse>.Fail("Invalid email or password");
 
             var token = await _tokenService.CreateTokenAsync(user);
             return AppResult<AppTokenResponse>.Success(token);

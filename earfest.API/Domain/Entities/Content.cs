@@ -4,7 +4,7 @@ public class Content : AbstractEntity, IAuditableEntity
 {
     public Content()
     {
-        Artists= new HashSet<AppUser>();
+        Artists = new HashSet<AppUser>();
         Categories = new HashSet<Category>();
         Moods = new HashSet<Mood>();
     }

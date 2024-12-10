@@ -15,7 +15,7 @@ public static class GetContents
         public async Task<AppResult<List<ContentResponse>>> Handle(Query request, CancellationToken cancellationToken)
         {
             var contents = await _dbContext.Contents.ToListAsync();
-            var response= contents.Adapt<List<ContentResponse>>();                
+            var response= contents.Adapt<List<ContentResponse>>();
             return AppResult<List<ContentResponse>>.Success(response);
         }
     }

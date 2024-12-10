@@ -9,7 +9,7 @@ public static class DeletePlaylist
 {
     public record Command(string Id) : IRequest<AppResult<NoContentDto>>;
     public class CommandHandler(EarfestDbContext _context) : IRequestHandler<Command, AppResult<NoContentDto>>
-    { 
+    {
         public async Task<AppResult<NoContentDto>> Handle(Command request, CancellationToken cancellationToken)
         {
             var playlist = await _context.Playlists.FindAsync(request.Id);

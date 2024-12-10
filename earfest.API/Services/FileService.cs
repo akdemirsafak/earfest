@@ -2,7 +2,7 @@
 
 public class FileService : IFileService
 {
-    public async Task UploadFileAsync(IFormFile file,string fileName) //returning imageUrl
+    public async Task UploadFileAsync(IFormFile file, string fileName) //returning imageUrl
     {
         if (file is not null && file.Length > 0)
         {

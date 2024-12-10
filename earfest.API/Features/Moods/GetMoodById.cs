@@ -15,7 +15,7 @@ public static class GetMoodById
         public async Task<AppResult<MoodDetailsResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var mood = await _context.Moods.FindAsync(request.Id);
-            return AppResult<MoodDetailsResponse>.Success(mood.Adapt<MoodDetailsResponse>(),200);
+            return AppResult<MoodDetailsResponse>.Success(mood.Adapt<MoodDetailsResponse>(), 200);
         }
     }
 

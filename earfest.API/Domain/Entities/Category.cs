@@ -1,13 +1,10 @@
-﻿
-using System.ComponentModel;
-
-namespace earfest.API.Domain.Entities;
+﻿namespace earfest.API.Domain.Entities;
 
 public class Category : AbstractEntity, IAuditableEntity
 {
     public Category()
     {
-        Contents= new HashSet<Content>();
+        Contents = new HashSet<Content>();
     }
     public string Name { get; set; }
     public string? Description { get; set; }

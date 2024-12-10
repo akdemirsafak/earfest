@@ -9,7 +9,7 @@ namespace earfest.API.Features.Moods;
 
 public static class UpdateMood
 {
-    public record Command(string Id,UpdateMoodRequest Model) : IRequest<AppResult<MoodResponse>>;
+    public record Command(string Id, UpdateMoodRequest Model) : IRequest<AppResult<MoodResponse>>;
     public class CommandHandler(EarfestDbContext _context) : IRequestHandler<Command, AppResult<MoodResponse>>
     {
         public async Task<AppResult<MoodResponse>> Handle(Command request, CancellationToken cancellationToken)

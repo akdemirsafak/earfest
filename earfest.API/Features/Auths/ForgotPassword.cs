@@ -4,7 +4,6 @@ using earfest.Shared.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using System.Threading.Channels;
 using System.Web;
 
 namespace earfest.API.Features.Auths;
@@ -16,7 +15,7 @@ public static class ForgotPassword
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ISendEndpointProvider _sendEndpointProvider;
-        public CommandHandler(UserManager<AppUser> userManager, 
+        public CommandHandler(UserManager<AppUser> userManager,
             ISendEndpointProvider sendEndpointProvider)
         {
             _userManager = userManager;

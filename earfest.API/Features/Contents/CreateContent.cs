@@ -12,11 +12,11 @@ namespace earfest.API.Features.Contents;
 public static class CreateContent
 {
     public record Command(string Name,
-        IList<string> MoodIds, 
-        IList<string> CategoryIds, 
+        IList<string> MoodIds,
+        IList<string> CategoryIds,
         string? Description,
-        string? ImageUrl, 
-        string? AudioUrl, 
+        string? ImageUrl,
+        string? AudioUrl,
         string? VideoUrl,
         string? Lyrics) : IRequest<AppResult<ContentResponse>>;
     public class CommandHandler(EarfestDbContext _dbContext) : IRequestHandler<Command, AppResult<ContentResponse>>

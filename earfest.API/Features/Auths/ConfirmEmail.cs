@@ -11,7 +11,7 @@ namespace earfest.API.Features.Auths;
 //User Register olduktan sonra mail adresine gelen maili onaylamak için kullanılacak.
 public static class ConfirmEmail
 {
-    public record Command(string userId,string Token) : IRequest<AppResult<NoContentDto>>;
+    public record Command(string userId, string Token) : IRequest<AppResult<NoContentDto>>;
 
     public class CommandHandler : IRequestHandler<Command, AppResult<NoContentDto>>
     {
@@ -30,7 +30,8 @@ public static class ConfirmEmail
         {
 
             var user = await _userManager.FindByIdAsync(request.userId); // jwt'den mail adresine veya id'sine erişerek burada user'ı alalım.
-            if (user == null) return AppResult<NoContentDto>.Fail("No user found with this email");
+            if (user == null)
+                return AppResult<NoContentDto>.Fail("No user found with this email");
             var result = await _userManager.ConfirmEmailAsync(user, token:request.Token);
             return result.Succeeded ? AppResult<NoContentDto>.Success() : AppResult<NoContentDto>.Fail("Failed to confirm email");
         }

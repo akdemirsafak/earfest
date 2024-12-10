@@ -35,7 +35,7 @@ public static class CreatePlan
                 .MaximumLength(32);
             RuleFor(x => x.Description)
                 .MaximumLength(256);
-            RuleFor(x=>x.Price)
+            RuleFor(x => x.Price)
                 .NotNull()
                 .GreaterThanOrEqualTo(0);
             RuleFor(x => x.Duration)

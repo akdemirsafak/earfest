@@ -1,7 +1,7 @@
 ﻿using earfest.API.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace earfest.API.Domain.Interceptors;

@@ -1,5 +1,4 @@
 ﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
 using earfest.API.Helpers;
 using earfest.API.Models.User;
@@ -11,7 +10,7 @@ namespace earfest.API.Features.Users;
 
 public static class UpdateUser
 {
-    public record Command(string FirstName, string LastName,DateTime? BirthDate) : IRequest<AppResult<UserResponse>>;
+    public record Command(string FirstName, string LastName, DateTime? BirthDate) : IRequest<AppResult<UserResponse>>;
     public class CommandHandler : IRequestHandler<Command, AppResult<UserResponse>>
     {
         private readonly UserManager<AppUser> _userManager;
@@ -32,7 +31,7 @@ public static class UpdateUser
             user.BirthDate = request.BirthDate;
 
             await _userManager.UpdateAsync(user);
-            return AppResult<UserResponse>.Success(user.Adapt<UserResponse>(),200);
+            return AppResult<UserResponse>.Success(user.Adapt<UserResponse>(), 200);
         }
     }
 }

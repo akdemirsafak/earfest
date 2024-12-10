@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace earfest.API.Features.Playlists;
 
-public static class GetPlaylistById 
+public static class GetPlaylistById
 {
     public record Query(string Id) : IRequest<AppResult<PlaylistDetailsResponse>>;
     public class QueryHandler(EarfestDbContext _dbContext) : IRequestHandler<Query, AppResult<PlaylistDetailsResponse>>
@@ -18,7 +18,7 @@ public static class GetPlaylistById
             var playlist = await _dbContext.Playlists
                 .Include(x=>x.Contents)
                 .FirstOrDefaultAsync(x=>x.Id==request.Id);
-           
+
             return AppResult<PlaylistDetailsResponse>.Success(playlist.Adapt<PlaylistDetailsResponse>());
         }
     }

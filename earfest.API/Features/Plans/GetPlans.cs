@@ -1,6 +1,5 @@
 ﻿using earfest.API.Base;
 using earfest.API.Domain.DbContexts;
-using earfest.API.Models;
 using earfest.API.Models.Plans;
 using Mapster;
 using MediatR;
@@ -18,7 +17,7 @@ public static class GetPlans
         {
             var plans = await _context.Plans.ToListAsync();
             var response = plans.Adapt<List<PlanResponse>>();
-            return AppResult<List<PlanResponse>>.Success(response,200);
+            return AppResult<List<PlanResponse>>.Success(response, 200);
         }
     }
 }

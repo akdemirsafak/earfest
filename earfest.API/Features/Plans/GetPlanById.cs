@@ -15,7 +15,7 @@ public static class GetPlanById
         public async Task<AppResult<PlanResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var mood = await _context.Plans.FindAsync(request.Id);
-            return AppResult<PlanResponse>.Success(mood.Adapt<PlanResponse>(),200);
+            return AppResult<PlanResponse>.Success(mood.Adapt<PlanResponse>(), 200);
         }
     }
 

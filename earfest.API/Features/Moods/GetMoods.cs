@@ -16,7 +16,7 @@ public static class GetMoods
         {
             var moods = await _context.Moods.ToListAsync();
             var response = moods.Adapt<List<MoodResponse>>();
-            return AppResult<List<MoodResponse>>.Success(response,200);
+            return AppResult<List<MoodResponse>>.Success(response, 200);
         }
     }
 }

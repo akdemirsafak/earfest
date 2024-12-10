@@ -28,11 +28,11 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<AuditInterceptor>();
 
-builder.Services.AddDbContext<EarfestDbContext>((sp,options) =>
+builder.Services.AddDbContext<EarfestDbContext>((sp, options) =>
 {
     var interceptor = sp.GetService<AuditInterceptor>()!;
     options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext"))
-    .AddInterceptors(interceptor); 
+    .AddInterceptors(interceptor);
 });
 
 builder.Services.AddIdentity<AppUser, AppRole>(options =>
@@ -81,7 +81,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICurrentUser,CurrentUser>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
 
 
@@ -104,7 +104,7 @@ builder.Host.UseSerilog();
 
 
 
-builder.Services.AddMassTransit(x => 
+builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
