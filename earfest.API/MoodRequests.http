@@ -1,0 +1,36 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@earfest.API_HostAddress = https://localhost:7145/api
+
+### CATEGORIES
+GET {{earfest.API_HostAddress}}/mood
+Accept: application/json
+
+### GET CATEGORY BY ID
+GET {{earfest.API_HostAddress}}/mood/b1e5ded0-008f-4cf6-858b-aba7340b21f1
+
+
+###
+POST {{earfest.API_HostAddress}}/mood
+Content-Type:application/json
+{
+  "name":"Bentley", 
+  "description":"LV", 
+  "imageUrl":"SixFeetUnder.jpg"
+}
+
+
+### UPDATE CATEGORY
+PUT {{earfest.API_HostAddress}}/mood/b1e5ded0-008f-4cf6-858b-aba7340b21f1
+Content-Type:application/json
+{
+  "id":"b1e5ded0-008f-4cf6-858b-aba7340b21f1",
+  "model":{
+    "name":"Candy",
+    "description":"",
+    "imageUrl":"candy.pngUrl"
+  }
+}
+
+### DELETE CATEGORY
+DELETE {{earfest.API_HostAddress}}/mood/b1e5ded0-008f-4cf6-858b-aba7340b21f1
+

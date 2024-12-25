@@ -1,0 +1,28 @@
+﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@earfest.API_HostAddress = https://localhost:7145/api
+
+### CATEGORIES
+GET {{earfest.API_HostAddress}}/category
+Accept: application/json
+
+### GET CATEGORY BY ID
+GET {{earfest.API_HostAddress}}/category/b1ba6323-aa49-4859-9195-e2bacf2e13e4
+
+### CREATE CATEGORY Burada Form Datalar görselle birlikte işin içine girdiği için kontrol etmek gerekli.
+
+
+### UPDATE CATEGORY
+PUT {{earfest.API_HostAddress}}/category/5096c649-64ce-4aad-a820-80a70920a782
+Content-Type:application/json
+{
+  "id":"5096c649-64ce-4aad-a820-80a70920a782",
+  "model":{
+  "name":"Charles",
+  "description":"Leclerc",
+  "imageUrl":"f1.pngUrl"
+  }
+}
+
+### DELETE CATEGORY
+DELETE {{earfest.API_HostAddress}}/category/ID
+

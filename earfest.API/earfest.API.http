@@ -1,6 +1,10 @@
-@earfest.API_HostAddress = http://localhost:5246
+﻿@earfest.API_HostAddress = https://localhost:7145
 
-GET {{earfest.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### USERS
+GET {{earfest.API_HostAddress}}/api/user
+Accept:application/json
 
-###
+### USER PROFILE
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjFiZjFjMTQ2LTcyYTMtNDBkNC1iNDA2LTAxYjY3NGEyNGE3YyIsImVtYWlsIjoiYWtkZW1pcnNhZmFrQGdtYWlsLmNvbSIsImp0aSI6ImIzZTBiYTU0LTBkZTctNDg4NC04MmJhLTEzZDIyYTExMTI3MiIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo3MTQ1IiwiaHR0cHM6Ly9sb2NhbGhvc3Q6NzExNyJdLCJuYmYiOjE3MzQ5NDkxMTcsImV4cCI6MTczNDk1MDkxNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzE0NSJ9.hUXp1vv3GveQ67wFZ1zmyKQK4o3ZrZ3CPbTNd0gVGjw
+GET {{earfest.API_HostAddress}}/api/user/profile
+Authorization : Bearer {{token}}

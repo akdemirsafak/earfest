@@ -1,0 +1,21 @@
+﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@earfest.API_HostAddress = https://localhost:7145/api
+
+
+### REGISTER
+POST {{earfest.API_HostAddress}}/auth/register
+Content-Type:application/json
+{
+  "email":"akdemirsafak34@hotmail.com",
+  "password":"Deneme*1234"
+  "firstName":"", 
+  "lastName":""
+}
+
+### LOGIN
+POST {{earfest.API_HostAddress}}/auth/login
+Content-Type:application/json
+{
+  "email":"akdemirsafak@gmail.com",
+  "password":"Deneme*1234"
+}
