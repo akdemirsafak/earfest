@@ -26,6 +26,8 @@ var host = Host.CreateDefaultBuilder(args)
             x.AddConsumer<ConfirmEmailEventConsumer>();
             x.AddConsumer<ForgotPasswordEventConsumer>();
             x.AddConsumer<PasswordChangedEmailEventConsumer>();
+            x.AddConsumer<SubscribedEventConsumer>();
+            x.AddConsumer<UnSubscribedEventConsumer>();
 
             x.UsingRabbitMq((context, cfg) =>
             {
@@ -56,6 +58,15 @@ var host = Host.CreateDefaultBuilder(args)
                 cfg.ReceiveEndpoint("password-changed-email-queue", e =>
                 {
                     e.ConfigureConsumer<PasswordChangedEmailEventConsumer>(context);
+                });
+
+                cfg.ReceiveEndpoint("send-subscribed-email-queue", e =>
+                {
+                    e.ConfigureConsumer<SubscribedEventConsumer>(context);
+                });
+                cfg.ReceiveEndpoint("send-unsubscribed-email-queue", e =>
+                {
+                    e.ConfigureConsumer<UnSubscribedEventConsumer>(context);
                 });
             });
         });

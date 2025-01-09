@@ -14,6 +14,8 @@ public class EarfestDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Mood> Moods { get; set; }
     public DbSet<Playlist> Playlists { get; set; }
     public DbSet<Plan> Plans { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<UserSubscription> UserSubscriptions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

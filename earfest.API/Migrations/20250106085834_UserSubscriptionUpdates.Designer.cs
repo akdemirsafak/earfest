@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using earfest.API.Domain.DbContexts;
@@ -11,9 +12,11 @@ using earfest.API.Domain.DbContexts;
 namespace earfest.API.Migrations
 {
     [DbContext(typeof(EarfestDbContext))]
-    partial class EarfestDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250106085834_UserSubscriptionUpdates")]
+    partial class UserSubscriptionUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,9 +213,6 @@ namespace earfest.API.Migrations
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CardToken")
-                        .HasColumnType("text");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -263,9 +263,6 @@ namespace earfest.API.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PaymentProviderCustomerId")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -454,10 +451,6 @@ namespace earfest.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -470,12 +463,12 @@ namespace earfest.API.Migrations
                     b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("HolderName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("MaskedHolderName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("PlanId")
                         .IsRequired()
@@ -487,6 +480,10 @@ namespace earfest.API.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

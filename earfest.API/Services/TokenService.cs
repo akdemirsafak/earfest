@@ -1,7 +1,9 @@
-﻿using earfest.API.Domain.Entities;
+﻿using earfest.API.Domain.DbContexts;
+using earfest.API.Domain.Entities;
 using earfest.API.Models;
 using earfest.API.Models.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,12 +17,15 @@ public class TokenService : ITokenService
 {
     private readonly AppTokenOptions _tokenOptions;
     private readonly UserManager<AppUser> _userManager;
+    private readonly EarfestDbContext _dbContext;
 
     public TokenService(IOptions<AppTokenOptions> tokenOptions,
-        UserManager<AppUser> userManager)
+        UserManager<AppUser> userManager,
+        EarfestDbContext dbContext)
     {
         _tokenOptions = tokenOptions.Value;
         _userManager = userManager;
+        _dbContext = dbContext;
     }
     public async Task<AppTokenResponse> CreateTokenAsync(AppUser appUser)
     {
@@ -30,7 +35,8 @@ public class TokenService : ITokenService
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
         var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
-        var claims = GetClaims(appUser, _tokenOptions.Audiences);
+       
+        var claims = await GetClaimsAsync(appUser, _tokenOptions.Audiences);
 
         var jwtSecurityToken = new JwtSecurityToken(
             issuer: _tokenOptions.Issuer,
@@ -62,14 +68,24 @@ public class TokenService : ITokenService
 
         return Convert.ToBase64String(numberByte);
     }
-    private IEnumerable<Claim> GetClaims(AppUser appUser, List<String> audiences)
+    private async Task<IEnumerable<Claim>> GetClaimsAsync(AppUser appUser, List<String> audiences)
     {
-        var roles = _userManager.GetRolesAsync(appUser).Result;
+        ////
+        var subscription = await _dbContext.UserSubscriptions
+        .Where(s => s.UserId == appUser.Id && s.IsActive && s.EndDate >= DateTime.UtcNow)
+        .Include(s => s.Plan)
+        .FirstOrDefaultAsync();
+
+        var membershipType = subscription != null ? subscription.Plan.Name : "Standard";
+        ////////
+
+        var roles = await _userManager.GetRolesAsync(appUser);
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, appUser.Id),
             new(JwtRegisteredClaimNames.Email, appUser.Email),
-            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) //Jwt'nin id sini temsil eder.
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), //Jwt'nin id sini temsil eder.
+            new("MembershipType", membershipType),
 
         };
         claims.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
