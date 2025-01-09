@@ -1,11 +1,12 @@
 ﻿using earfest.API.Base;
 using earfest.API.Features.Users;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-
+[Authorize]
 public class UserController : EarfestBaseController
 {
     public UserController(IMediator mediator) : base(mediator)
@@ -20,6 +21,7 @@ public class UserController : EarfestBaseController
     }
 
     [HttpGet("profile")]
+    //[Authorize]
     public async Task<IActionResult> Profile()
     {
         return CreateActionResult(await _mediator.Send(new UserProfile.Query()));
@@ -43,5 +45,4 @@ public class UserController : EarfestBaseController
         var result = await _mediator.Send(command);
         return CreateActionResult(result);
     }
-
 }

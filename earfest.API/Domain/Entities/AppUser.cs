@@ -8,7 +8,6 @@ public class AppUser : IdentityUser<string>
     {
         Contents = new HashSet<Content>();
         Playlists = new HashSet<Playlist>();
-        Plan = new Plan();
     }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
@@ -18,12 +17,12 @@ public class AppUser : IdentityUser<string>
     public DateTime? RefreshTokenExpiration { get; set; }
     public ICollection<Content>? Contents { get; set; }
     public ICollection<Playlist>? Playlists { get; set; }
-    public Plan? Plan { get; set; }
     public DateTime? CreatedAt { get; set; }
-    public string? CreatedBy { get; set; }
     public DateTime? UpdatedAt { get; set; }
-    public string? UpdatedBy { get; set; }
     public bool IsDeleted { get; set; }
     public DateTime? DeletedAt { get; set; }
     public string? DeletedBy { get; set; }
+    // Ödeme işlemleri için gerekli alanlar
+    public string? PaymentProviderCustomerId { get; set; }
+    public string? CardToken { get; set; } 
 }

@@ -1,12 +1,9 @@
-﻿namespace earfest.API.Models.User
-{
-    public class UserResponse : BaseResponse
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
+﻿namespace earfest.API.Models.User;
 
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public DateTime? BirthDate { get; set; }
-    }
+public class UserResponse : BaseResponse
+{
+    public string Email { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public DateTime? BirthDate { get; set; }
 }

@@ -5,7 +5,6 @@ using earfest.Shared.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Web;
 
 namespace earfest.API.Features.Auths;
@@ -28,7 +27,6 @@ public static class Register
         }
         public async Task<AppResult<NoContentDto>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var plan = await _context.Plans.FirstOrDefaultAsync(x=>x.IsFree==true && x.IsTrial==false);
             var user = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
@@ -36,7 +34,7 @@ public static class Register
                 UserName = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Plan = plan
+                CreatedAt = DateTime.UtcNow
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             var callbackUrl = $"https://localhost:7145/api/auth/confirm-email?userId={user.Id}&token={HttpUtility.UrlEncode(await _userManager.GenerateEmailConfirmationTokenAsync(user))}";

@@ -1,6 +1,8 @@
 ﻿using earfest.API.Base;
 using earfest.API.Features.Contents;
+using earfest.API.Filters;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
@@ -41,5 +43,22 @@ public class ContentController : EarfestBaseController
     {
         var result = await _mediator.Send(new DeleteContent.Command(id));
         return CreateActionResult(result);
+    }
+
+    //[Authorize]
+    [MembershipRequirement("Premium")]
+    [HttpGet("PremiumContents")]
+    public IActionResult GetPremiumContent()
+    {
+        //var membershipType = HttpContext.User.FindFirst("MembershipType")?.Value;
+
+        //if (membershipType == "Premium")
+        //{
+        //    return Ok(new { Content = "Premium Content" });
+        //}
+
+        //return Ok(new { Content = "Standard Content" });
+        // Premium içerik döndür
+        return Ok("This is premium content");
     }
 }
