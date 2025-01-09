@@ -19,6 +19,9 @@
 #### Fluent Validation
 #### Interceptor for Audit Log 
 #### MediatR
+#### Subscription
+#### Background Jobs for renew Membership/subscription
+#### Custom Authorizate Attribute for Premium Members
 
 ### TODO
 1. Worker Service Cron Jobs with Hangfire or Quartz
