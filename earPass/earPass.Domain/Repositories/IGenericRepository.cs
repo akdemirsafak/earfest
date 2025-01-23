@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace earPass.Domain.Repositories;
+﻿namespace earPass.Domain.Repositories;
 
 public interface IGenericRepository<T>
 {
