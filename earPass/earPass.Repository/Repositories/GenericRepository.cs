@@ -6,11 +6,12 @@ namespace earPass.Repository.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
-    private readonly EarPassDbContext _dbContext;
+    protected readonly EarPassDbContext _dbContext;
     private readonly DbSet<T> _dbSet;
 
     public GenericRepository(EarPassDbContext dbContext)
     {
+        _dbContext = dbContext;
         _dbSet = dbContext.Set<T>();
     }
 

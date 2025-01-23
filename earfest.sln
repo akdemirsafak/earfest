@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Domain", "earPass\e
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Repository", "earPass\earPass.Repository\earPass.Repository.csproj", "{8592AFF4-4AAB-4CB3-9F41-A6C8A8FCA873}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Service", "earPass\earPass.Service\earPass.Service.csproj", "{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8592AFF4-4AAB-4CB3-9F41-A6C8A8FCA873}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8592AFF4-4AAB-4CB3-9F41-A6C8A8FCA873}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8592AFF4-4AAB-4CB3-9F41-A6C8A8FCA873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
