@@ -4,6 +4,9 @@ using earPass.Domain.Services;
 using earPass.Repository.DbContexts;
 using earPass.Repository.Repositories;
 using earPass.Service.Services;
+using earPass.Service.Validations;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -43,6 +46,10 @@ builder.Services.AddScoped<IEventyRepository, EventyRepository>();
 
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<TicketRequestValidator>();
+
 
 var app = builder.Build();
 
