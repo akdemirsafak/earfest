@@ -22,12 +22,12 @@ public class AppResult<T>
         return new AppResult<T> { Data = default, StatusCode = statusCode };
     }
 
-    public static AppResult<T> Fail(List<string> errors, int statusCode = 0)
+    public static AppResult<T> Fail(List<string> errors, int statusCode = 400)
     {
         return new AppResult<T> { Data = default, Errors = errors, StatusCode = statusCode };
     }
 
-    public static AppResult<T> Fail(string error, int statusCode = 0)
+    public static AppResult<T> Fail(string error, int statusCode = 400)
     {
         return new AppResult<T> { Data = default, Errors = new List<string> { error }, StatusCode = statusCode };
     }

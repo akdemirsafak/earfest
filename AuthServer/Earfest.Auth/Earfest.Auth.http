@@ -1,0 +1,6 @@
+@Earfest.Auth_HostAddress = http://localhost:5107
+
+GET {{Earfest.Auth_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

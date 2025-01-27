@@ -31,7 +31,7 @@ builder.Services.AddSingleton<AuditInterceptor>();
 builder.Services.AddDbContext<EarfestDbContext>((sp,options) =>
 {
     var interceptor = sp.GetService<AuditInterceptor>()!;
-    options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestContext"))
+    options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestDbContext"))
     .AddInterceptors(interceptor); 
 });
 

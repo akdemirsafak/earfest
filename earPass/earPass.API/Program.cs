@@ -1,4 +1,5 @@
-using earPass.Domain.Entities;
+using System.Reflection;
+using System.Text;
 using earPass.Domain.Repositories;
 using earPass.Domain.Services;
 using earPass.Repository.DbContexts;
@@ -7,9 +8,9 @@ using earPass.Service.Services;
 using earPass.Service.Validations;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,17 +27,6 @@ builder.Services.AddDbContext<EarPassDbContext>(options =>
         option => { option.MigrationsAssembly(Assembly.GetAssembly(typeof(EarPassDbContext))!.GetName().Name); }
         );
 });
-builder.Services.AddIdentity<AppUser, AppRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 8;
-})
-    .AddEntityFrameworkStores<EarPassDbContext>()
-    .AddDefaultTokenProviders();
 
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -50,6 +40,22 @@ builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<TicketRequestValidator>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+
 
 var app = builder.Build();
 
@@ -61,6 +67,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

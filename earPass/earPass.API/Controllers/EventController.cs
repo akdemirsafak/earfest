@@ -17,6 +17,7 @@ public class EventController(IEventyService _eventService) : EarfestBaseControll
     {
         return CreateActionResult(await _eventService.DeleteAsync(id));
     }
+    //[Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
