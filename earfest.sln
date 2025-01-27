@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Repository", "earPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Service", "earPass\earPass.Service\earPass.Service.csproj", "{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Earfest.Auth", "AuthServer\Earfest.Auth\Earfest.Auth.csproj", "{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{636ED1C3-1E7E-4C65-BA44-7A2129BD44D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
