@@ -1,10 +1,9 @@
 ﻿using earPass.Domain.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace earPass.Repository.DbContexts;
 
-public class EarPassDbContext : IdentityDbContext<AppUser,AppRole,string>
+public class EarPassDbContext : DbContext
 {
     public EarPassDbContext(DbContextOptions<EarPassDbContext> options) : base(options)
     {

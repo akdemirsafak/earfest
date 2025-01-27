@@ -1,7 +1,6 @@
 ﻿using earfest.Shared.Base;
 using earPass.Domain.Models.Ticket;
 using earPass.Domain.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earPass.API.Controllers;
