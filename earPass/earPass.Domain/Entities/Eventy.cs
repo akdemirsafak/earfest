@@ -8,7 +8,7 @@ public sealed class Eventy : AbstractEntity
     public Eventy()
     {
         Tickets = new HashSet<Ticket>();
-        Performers = new HashSet<AppUser>();
+        PerformerIds = new HashSet<string>();
     }
     public string Name { get; set; }
     public string? Description { get; set; }
@@ -17,5 +17,5 @@ public sealed class Eventy : AbstractEntity
     public string? Image { get; set; }
     public EventTypeEnum Type { get; set; }
     public ICollection<Ticket>? Tickets { get; set; }
-    public ICollection<AppUser>? Performers { get; set; }
+    public ICollection<string>? PerformerIds { get; set; }
 }

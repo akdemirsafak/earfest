@@ -10,7 +10,6 @@ public sealed class UserTicket : AbstractEntity
     public string TicketId { get; set; }
     public decimal Price { get; set; }
     public string UserId { get; set; }
-    public string UserFullName { get; set; }
     public DateTime PurchaseDate { get; set; }
     public bool IsUsed { get; set; }
     public bool IsExpired { get; set; }
