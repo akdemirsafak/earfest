@@ -14,5 +14,5 @@ public class ContentDetailsResponse : BaseResponse
     public string? Lyrics { get; set; }
     public virtual IList<MoodResponse> Moods { get; set; }
     public virtual IList<CategoryResponse> Categories { get; set; }
-    public virtual IList<AppUser> Artists { get; set; } // Signifies the artist(s) of the content
+    public virtual IList<string> ArtistIds { get; set; } // Signifies the artist(s) of the content
 }

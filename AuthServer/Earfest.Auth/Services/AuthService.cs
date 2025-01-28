@@ -1,12 +1,12 @@
-﻿using earfest.Shared.Base;
+﻿using System.Web;
+using earfest.Shared.Base;
 using earfest.Shared.Events;
+using earfest.Shared.Models;
 using Earfest.Auth.AbstractServices;
 using Earfest.Auth.Entities;
-using Earfest.Auth.Models;
 using Earfest.Auth.Models.Auth;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
-using System.Web;
 
 namespace Earfest.Auth.Services;
 

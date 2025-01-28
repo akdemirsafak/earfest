@@ -1,15 +1,13 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Playlists;
+﻿using earfest.API.Features.Playlists;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-public class PlaylistController : EarfestBaseController
+public class PlaylistController(IMediator _mediator) : EarfestBaseController
 {
-    public PlaylistController(IMediator mediator) : base(mediator)
-    {
-    }
+
 
     [HttpGet]
     public async Task<IActionResult> GetPlaylists()

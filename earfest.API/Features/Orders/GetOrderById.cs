@@ -1,7 +1,7 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
 using earfest.API.Helpers;
 using earfest.API.Models.Order;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

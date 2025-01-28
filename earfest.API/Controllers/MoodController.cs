@@ -1,16 +1,12 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Moods;
+﻿using earfest.API.Features.Moods;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-public class MoodController : EarfestBaseController
+public class MoodController(IMediator _mediator) : EarfestBaseController
 {
-    public MoodController(IMediator mediator) : base(mediator)
-    {
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

@@ -1,5 +1,5 @@
 ﻿using earfest.Shared.Base;
-using Earfest.Auth.Models;
+using earfest.Shared.Models;
 using Earfest.Auth.Models.Auth;
 
 namespace Earfest.Auth.AbstractServices;

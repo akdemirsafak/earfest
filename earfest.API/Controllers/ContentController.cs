@@ -1,16 +1,18 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Contents;
+﻿using earfest.API.Features.Contents;
 using earfest.API.Filters;
+using earfest.Shared.Base;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
 public class ContentController : EarfestBaseController
 {
-    public ContentController(IMediator mediator) : base(mediator)
+    private readonly IMediator _mediator;
+
+    public ContentController(IMediator mediator)
     {
+        _mediator = mediator;
     }
 
     [HttpGet]

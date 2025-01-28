@@ -1,5 +1,5 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Categories;
+﻿using earfest.API.Features.Categories;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,8 +7,11 @@ namespace earfest.API.Controllers;
 
 public class CategoryController : EarfestBaseController
 {
-    public CategoryController(IMediator mediator) : base(mediator)
+    private readonly IMediator _mediator;
+
+    public CategoryController(IMediator mediator)
     {
+        _mediator = mediator;
     }
 
     [HttpGet]

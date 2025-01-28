@@ -1,5 +1,5 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
+using earfest.Shared.Base;
 using FluentValidation;
 using MediatR;
 

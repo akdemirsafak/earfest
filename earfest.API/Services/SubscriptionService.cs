@@ -29,21 +29,22 @@ public class SubscriptionService : ISubscriptionService
 
     public async Task RenewSubscription(string subscriptionId)
     {
-        UserSubscription? subscription = await _dbContext.UserSubscriptions.FindAsync(subscriptionId);
-        if (subscription == null || !subscription.IsActive)
-            throw new Exception("Active subscription not found.");
+        //UserSubscription? subscription = await _dbContext.UserSubscriptions.FindAsync(subscriptionId);
+        //if (subscription == null || !subscription.IsActive)
+        //    throw new Exception("Active subscription not found.");
 
-        var user = await _dbContext.Users.FindAsync(subscription.UserId);
+        ////var user = await _dbContext.Users.FindAsync(subscription.UserId);
 
 
-        subscription.StartDate = subscription.EndDate;
-        subscription.EndDate = subscription.EndDate.AddMonths(1); // Varsayılan süreyi uzat
+        //subscription.StartDate = subscription.EndDate;
+        //subscription.EndDate = subscription.EndDate.AddMonths(1); // Varsayılan süreyi uzat
 
-        var paymentResult = await _paymentService.PayAsync(user.PaymentProviderCustomerId!,user.CardToken!,subscription.Plan.Price);
-        subscription.PaymentStatus = PaymentStatus.Success;
+        //var paymentResult = await _paymentService.PayAsync(user.PaymentProviderCustomerId!,user.CardToken!,subscription.Plan.Price);
+        //subscription.PaymentStatus = PaymentStatus.Success;
 
-        _dbContext.UserSubscriptions.Update(subscription);
-        await _dbContext.SaveChangesAsync();
+        //_dbContext.UserSubscriptions.Update(subscription);
+        //await _dbContext.SaveChangesAsync();
+
     }
 
     //public async Task CancelSubscription(string subscriptionId)

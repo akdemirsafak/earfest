@@ -1,16 +1,12 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Orders;
+﻿using earfest.API.Features.Orders;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-public class OrderController : EarfestBaseController
+public class OrderController(IMediator _mediator) : EarfestBaseController
 {
-    public OrderController(IMediator mediator) : base(mediator)
-    {
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

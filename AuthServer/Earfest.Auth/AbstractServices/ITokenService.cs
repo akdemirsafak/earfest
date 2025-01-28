@@ -1,6 +1,6 @@
-﻿using Earfest.Auth.Entities;
-using Earfest.Auth.Models;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using earfest.Shared.Models;
+using Earfest.Auth.Entities;
 
 namespace Earfest.Auth.AbstractServices;
 

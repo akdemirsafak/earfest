@@ -1,5 +1,5 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Membership;
+﻿using earfest.API.Features.Membership;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +9,11 @@ namespace earfest.API.Controllers;
 [Authorize]
 public class MembershipController : EarfestBaseController
 {
-    public MembershipController(IMediator mediator) : base(mediator)
+    private readonly IMediator _mediator;
+
+    public MembershipController(IMediator mediator)
     {
+        _mediator = mediator;
     }
 
     [HttpPost]

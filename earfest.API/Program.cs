@@ -1,21 +1,18 @@
-﻿using earfest.API.Behaviours;
+﻿using System.Text;
+using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
-using earfest.API.Domain.Entities;
 using earfest.API.Domain.Interceptors;
 using earfest.API.Features.Categories;
 using earfest.API.Helpers;
 using earfest.API.Middlewares;
-using earfest.API.Models;
 using earfest.API.Services;
 using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,41 +32,24 @@ builder.Services.AddDbContext<EarfestDbContext>((sp,options) =>
     .AddInterceptors(interceptor); 
 });
 
-builder.Services.AddIdentity<AppUser, AppRole>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequiredLength = 8;
-})
-    .AddEntityFrameworkStores<EarfestDbContext>()
-    .AddDefaultTokenProviders();
 
 
-var tokenOptions = builder.Configuration.GetSection("AppTokenOptions").Get<AppTokenOptions>();
-builder.Services.Configure<AppTokenOptions>(builder.Configuration.GetSection("AppTokenOptions"));
-
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-{
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidIssuer = tokenOptions!.Issuer,
-        ValidAudiences = tokenOptions.Audiences,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+
 
 builder.Services.AddMediatR(cfg =>
 {
@@ -77,7 +57,6 @@ builder.Services.AddMediatR(cfg =>
     //cfg.AddOpenBehavior(typeof(UnitOfWorkBehavior<,>));
 });
 
-builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();

@@ -4,7 +4,7 @@ public class Content : AbstractEntity, IAuditableEntity
 {
     public Content()
     {
-        Artists= new HashSet<AppUser>();
+        ArtistIds= new HashSet<string>();
         Categories = new HashSet<Category>();
         Moods = new HashSet<Mood>();
     }
@@ -14,7 +14,7 @@ public class Content : AbstractEntity, IAuditableEntity
     public string? AudioUrl { get; set; }
     public string? VideoUrl { get; set; }
     public string? Lyrics { get; set; }
-    public ICollection<AppUser> Artists { get; set; }
+    public ICollection<string> ArtistIds { get; set; }
     public ICollection<Category> Categories { get; set; }
     public ICollection<Mood> Moods { get; set; }
     public DateTime CreatedAt { get; set; }

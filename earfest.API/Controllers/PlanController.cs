@@ -1,16 +1,12 @@
-﻿using earfest.API.Base;
-using earfest.API.Features.Plans;
+﻿using earfest.API.Features.Plans;
+using earfest.Shared.Base;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace earfest.API.Controllers;
 
-public class PlanController : EarfestBaseController
+public class PlanController(IMediator _mediator) : EarfestBaseController
 {
-    public PlanController(IMediator mediator) : base(mediator)
-    {
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {

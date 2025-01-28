@@ -1,6 +1,6 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
 using earfest.API.Models.Contents;
+using earfest.Shared.Base;
 using FluentValidation;
 using Mapster;
 using MediatR;
@@ -16,7 +16,7 @@ public static class GetContentById
         public async Task<AppResult<ContentDetailsResponse>> Handle(Query request, CancellationToken cancellationToken)
         {
             var content = await _context.Contents
-                .Include(x => x.Artists)
+                //.Include(x => x.Artists)
                 .Include(x => x.Categories)
                 .Include(x => x.Moods)
                 .SingleOrDefaultAsync(x => x.Id == request.Id);

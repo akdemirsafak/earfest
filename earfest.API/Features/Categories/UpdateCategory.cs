@@ -1,7 +1,7 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
 using earfest.API.Models.Category;
 using earfest.API.Models.Moods;
+using earfest.Shared.Base;
 using FluentValidation;
 using Mapster;
 using MediatR;

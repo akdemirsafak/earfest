@@ -1,6 +1,6 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
 using earfest.API.Models.Category;
+using earfest.Shared.Base;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

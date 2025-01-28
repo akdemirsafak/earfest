@@ -1,14 +1,12 @@
-﻿using earfest.API.Base;
-using earfest.API.Domain.DbContexts;
+﻿using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Entities;
 using earfest.API.Helpers;
 using earfest.API.Models.Payment;
 using earfest.API.Services;
-using earfest.Shared.Events;
+using earfest.Shared.Base;
 using FluentValidation;
 using MassTransit;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace earfest.API.Features.Membership;
@@ -19,19 +17,17 @@ public static class Subscribe
     public class CommandHandler : IRequestHandler<Command, AppResult<NoContentDto>>
     {
         private readonly EarfestDbContext _dbContext;
-        private readonly UserManager<AppUser> _userManager;
         private readonly ICurrentUser _currentUser;
         private readonly ISendEndpointProvider _sendEndpointProvider;
         private readonly IPaymentService _paymentService;
 
         public CommandHandler(EarfestDbContext dbContext,
-            UserManager<AppUser> userManager,
+
             ICurrentUser currentUser,
             ISendEndpointProvider sendEndpointProvider,
             IPaymentService paymentService)
         {
             _dbContext = dbContext;
-            _userManager = userManager;
             _currentUser = currentUser;
             _sendEndpointProvider = sendEndpointProvider;
             _paymentService = paymentService;
@@ -46,7 +42,7 @@ public static class Subscribe
             /////////////////////
             Plan plan = await _dbContext.Plans.FindAsync(request.PlanId); // Find olduğu için plan yoksa hata fırlatır.
 
-            AppUser user = await _userManager.FindByIdAsync(_currentUser.GetUserId);
+
 
             // PAYMENT
             PayResponse paymentResult=await _paymentService.PayAsync(request.CardHolderName, request.CardNumber, request.CVV, request.expiredMonth, request.expiredYear, plan.Price);
@@ -79,27 +75,27 @@ public static class Subscribe
 
             await _dbContext.Orders.AddAsync(order);
 
-            user.CardToken = paymentResult.PaymentToken;
-            user.PaymentProviderCustomerId= paymentResult.PaymentProviderCustomerId;
+            //user.CardToken = paymentResult.PaymentToken;
+            //user.PaymentProviderCustomerId= paymentResult.PaymentProviderCustomerId;
 
             await _dbContext.SaveChangesAsync();
 
-            await _userManager.UpdateAsync(user);
+            //await _userManager.UpdateAsync(user);
 
 
             //SEND EMAIL 
 
-            var sendEndpoint=await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:send-payment-purchased-email-queue"));
+            //var sendEndpoint=await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:send-payment-purchased-email-queue"));
 
-            var emailBody = $"Merhaba {user.FirstName} {user.LastName}, {plan.Name} planını başarıyla satın aldınız. Planınızı kullanmaya başlayabilirsiniz.";
+            //var emailBody = $"Merhaba {user.FirstName} {user.LastName}, {plan.Name} planını başarıyla satın aldınız. Planınızı kullanmaya başlayabilirsiniz.";
 
-            var paymentSuccessMailBody=new SubscribedEvent
-            {
-                To = user.Email!,
-                Subject = "Plan Satın Alındı.",
-                Body = emailBody
-            };
-            await sendEndpoint.Send(paymentSuccessMailBody);
+            //var paymentSuccessMailBody=new SubscribedEvent
+            //{
+            //    To = user.Email!,
+            //    Subject = "Plan Satın Alındı.",
+            //    Body = emailBody
+            //};
+            //await sendEndpoint.Send(paymentSuccessMailBody);
 
 
             return AppResult<NoContentDto>.Success();

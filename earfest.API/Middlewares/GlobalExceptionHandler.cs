@@ -1,6 +1,6 @@
-﻿using earfest.API.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using earfest.Shared.Base;
 using Microsoft.AspNetCore.Diagnostics;
-using System.ComponentModel.DataAnnotations;
 
 namespace earfest.API.Middlewares;
 

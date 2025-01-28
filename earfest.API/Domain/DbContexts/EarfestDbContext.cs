@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace earfest.API.Domain.DbContexts;
 
-public class EarfestDbContext : IdentityDbContext<AppUser, AppRole, string>
+public class EarfestDbContext : DbContext
 {
     public EarfestDbContext(DbContextOptions<EarfestDbContext> options) : base(options)
     {

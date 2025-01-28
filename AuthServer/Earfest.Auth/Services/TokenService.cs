@@ -1,4 +1,5 @@
-﻿using Earfest.Auth.AbstractServices;
+﻿using earfest.Shared.Models;
+using Earfest.Auth.AbstractServices;
 using Earfest.Auth.Entities;
 using Earfest.Auth.Models;
 using Microsoft.AspNetCore.Identity;

@@ -11,7 +11,7 @@ public class UserSubscription
     public DateTime EndDate { get; set; } // Üyelik bitiş tarihi
     public bool IsActive { get; set; } // Üyelik aktif mi?
     public PaymentStatus PaymentStatus { get; set; } // Ödeme durumu: Başarılı, Bekliyor, Hatalı
-    public virtual AppUser User { get; set; }
+    //public virtual AppUser User { get; set; }
     public string UserId { get; set; } // Identity kullanıcısı ile ilişkilendirme
     public virtual Plan Plan { get; set; }
     public string PlanId { get; set; } // Plan ile ilişkilendirme
