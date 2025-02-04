@@ -1,7 +1,8 @@
+using System.Text;
+using earfest.Shared.Helpers;
 using Earfest.Auth.AbstractServices;
 using Earfest.Auth.DbContexts;
 using Earfest.Auth.Entities;
-using Earfest.Auth.Helpers;
 using Earfest.Auth.Models;
 using Earfest.Auth.Services;
 using MassTransit;
@@ -9,7 +10,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
