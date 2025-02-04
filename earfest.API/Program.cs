@@ -3,9 +3,9 @@ using earfest.API.Behaviours;
 using earfest.API.Domain.DbContexts;
 using earfest.API.Domain.Interceptors;
 using earfest.API.Features.Categories;
-using earfest.API.Helpers;
 using earfest.API.Middlewares;
 using earfest.API.Services;
+using earfest.Shared.Helpers;
 using FluentValidation;
 using MassTransit;
 using MediatR;
@@ -25,11 +25,11 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<AuditInterceptor>();
 
-builder.Services.AddDbContext<EarfestDbContext>((sp,options) =>
+builder.Services.AddDbContext<EarfestDbContext>((sp, options) =>
 {
     var interceptor = sp.GetService<AuditInterceptor>()!;
     options.UseNpgsql(builder.Configuration.GetConnectionString("EarfestDbContext"))
-    .AddInterceptors(interceptor); 
+    .AddInterceptors(interceptor);
 });
 
 
@@ -58,11 +58,8 @@ builder.Services.AddMediatR(cfg =>
 });
 
 builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
-
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICurrentUser,CurrentUser>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
 
 
@@ -72,7 +69,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 
 
-string logdbConnectionString=builder.Configuration.GetConnectionString("LogDbConnection"); // Bu database'i kendimiz oluşturuyoruz.
+string logdbConnectionString = builder.Configuration.GetConnectionString("LogDbConnection"); // Bu database'i kendimiz oluşturuyoruz.
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .Enrich.FromLogContext()
@@ -85,7 +82,7 @@ builder.Host.UseSerilog();
 
 
 
-builder.Services.AddMassTransit(x => 
+builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((context, cfg) =>
     {
