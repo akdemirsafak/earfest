@@ -1,0 +1,3 @@
+﻿namespace MembershipService.Models.Plans;
+
+public record CreatePlanRequest(string Name, string? Description, decimal Price, int Duration, bool IsTrial, bool IsFree, bool IsPremium);

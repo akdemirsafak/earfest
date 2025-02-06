@@ -1,5 +1,4 @@
-﻿using earfest.API.Domain.Entities;
-using earfest.API.Models.Category;
+﻿using earfest.API.Models.Category;
 using earfest.API.Models.Moods;
 
 namespace earfest.API.Models.Contents;

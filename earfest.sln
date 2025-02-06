@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.Service", "earPass\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Earfest.Auth", "AuthServer\Earfest.Auth\Earfest.Auth.csproj", "{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Earfest.Payment", "Payment.Service\Earfest.Payment\Earfest.Payment.csproj", "{CB82FD35-B356-44FD-968E-EA03BDA59510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MembershipService", "Membership\MembershipService\MembershipService.csproj", "{801611D4-EE08-49C2-80B5-9D4A70105F0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +61,14 @@ Global
 		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFDD442-0EFF-4832-82CB-8B92EFC4EE3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB82FD35-B356-44FD-968E-EA03BDA59510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB82FD35-B356-44FD-968E-EA03BDA59510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB82FD35-B356-44FD-968E-EA03BDA59510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB82FD35-B356-44FD-968E-EA03BDA59510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{801611D4-EE08-49C2-80B5-9D4A70105F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801611D4-EE08-49C2-80B5-9D4A70105F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801611D4-EE08-49C2-80B5-9D4A70105F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801611D4-EE08-49C2-80B5-9D4A70105F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

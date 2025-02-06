@@ -1,0 +1,6 @@
+@Earfest.Payment_HostAddress = http://localhost:5215
+
+GET {{Earfest.Payment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

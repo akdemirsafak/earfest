@@ -1,5 +1,4 @@
 ﻿using earfest.API.Domain.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace earfest.API.Domain.DbContexts;
@@ -13,14 +12,9 @@ public class EarfestDbContext : DbContext
     public DbSet<Content> Contents { get; set; }
     public DbSet<Mood> Moods { get; set; }
     public DbSet<Playlist> Playlists { get; set; }
-    public DbSet<Plan> Plans { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<UserSubscription> UserSubscriptions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //builder.Entity<IAuditableEntity>().HasQueryFilter(p => !p.IsDeleted);
-        builder.Entity<Plan>().HasQueryFilter(p => !p.IsDeleted);
         builder.Entity<Category>().HasQueryFilter(p => !p.IsDeleted);
         builder.Entity<Content>().HasQueryFilter(p => !p.IsDeleted);
         builder.Entity<Playlist>().HasQueryFilter(p => !p.IsDeleted);
