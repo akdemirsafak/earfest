@@ -1,8 +1,11 @@
 using System.Text;
 using earfest.Shared.Helpers;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MembershipService.DbContexts;
 using MembershipService.Mapping;
 using MembershipService.Services;
+using MembershipService.Validations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -48,8 +51,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 MappingConfig.RegisterMappings();
 
-//builder.Services.AddFluentValidationAutoValidation();
-//builder.Services.AddValidatorsFromAssemblyContaining<CreatePlanRequestValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CreatePlanRequestValidator>();
 
 
 

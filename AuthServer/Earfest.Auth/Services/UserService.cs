@@ -1,8 +1,8 @@
 ﻿using earfest.Shared.Base;
 using earfest.Shared.Events;
+using earfest.Shared.Helpers;
 using Earfest.Auth.AbstractServices;
 using Earfest.Auth.Entities;
-using Earfest.Auth.Helpers;
 using Earfest.Auth.Models.User;
 using Mapster;
 using MassTransit;

@@ -1,9 +1,12 @@
 using System.Text;
 using Earfest.Payment.DbContexts;
 using Earfest.Payment.Services;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Earfest.Payment.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +40,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<PayRequestValidator>();
+
 
 
 

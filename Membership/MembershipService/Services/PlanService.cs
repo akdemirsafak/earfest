@@ -18,24 +18,12 @@ public class PlanService : IPlanService
 
     public async Task<AppResult<PlanResponse>> CreateAsync(CreatePlanRequest request)
     {
-        isEqualFreeAndPremium(request.IsFree, request.IsPremium);
-        isEqualFreeAndTrial(request.IsFree, request.IsTrial);
-
         var plan = request.Adapt<Plan>();
         await _dbContext.Plans.AddAsync(plan);
         await _dbContext.SaveChangesAsync();
         return AppResult<PlanResponse>.Success(plan.Adapt<PlanResponse>(), 201);
     }
-    private static void isEqualFreeAndPremium(bool isFree, bool isPremium)
-    {
-        if (isFree && isPremium)
-            throw new Exception("Plan cannot be both free and premium.");
-    }
-    private static void isEqualFreeAndTrial(bool isFree, bool isTrial)
-    {
-        if (isFree && isTrial)
-            throw new Exception("Plan cannot be both free and trial.");
-    }
+
 
     public async Task<AppResult<NoContentDto>> DeleteAsync(string id)
     {
