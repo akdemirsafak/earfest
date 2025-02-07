@@ -23,9 +23,6 @@ builder.Services.AddDbContext<PaymentDbContext>(options =>
 
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-
-
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -40,12 +37,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<PayRequestValidator>();
-
-
-
-
 
 var app = builder.Build();
 

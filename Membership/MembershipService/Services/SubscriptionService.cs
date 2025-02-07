@@ -1,7 +1,9 @@
 ﻿using System.Net.Http.Headers;
 using earfest.Shared.Base;
+using earfest.Shared.Events;
 using earfest.Shared.Helpers;
 using Mapster;
+using MassTransit;
 using MembershipService.DbContexts;
 using MembershipService.Entities;
 using MembershipService.Models.Payment;
@@ -16,17 +18,20 @@ public class SubscriptionService : ISubscriptionService
     private readonly ICurrentUser _currentUser;
     private readonly HttpClient _httpClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ISendEndpointProvider _sendEndpointProvider;
 
 
     public SubscriptionService(MembershipDbContext dbContext,
         ICurrentUser currentUser,
         HttpClient httpClient,
-        IHttpContextAccessor httpContextAccessor)
+        IHttpContextAccessor httpContextAccessor,
+        ISendEndpointProvider sendEndpointProvider)
     {
         _dbContext = dbContext;
         _currentUser = currentUser;
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
+        _sendEndpointProvider = sendEndpointProvider;
     }
     public async Task<AppResult<NoContentDto>> CreateAsync(SubscribeRequest request)
     {
@@ -67,6 +72,15 @@ public class SubscriptionService : ISubscriptionService
         await _dbContext.Subscriptions.AddAsync(subscription);
         await _dbContext.SaveChangesAsync();
 
+        var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:send-subscription-email-queue"));
+        await endpoint.Send(new SubscribedEvent
+        {
+            To = _currentUser.GetEmail,
+            Subject = "Üyelik başlatıldı.",
+            Body = $"Üyeliğiniz {DateTime.Now.ToString("dd/MM/yyyy")} tarihinde başlatıldı. {plan.Name} planının tüm avantajlarından faydalanacaksınız.!"
+        });
+
+
         return AppResult<NoContentDto>.Success();
 
     }
@@ -84,6 +98,14 @@ public class SubscriptionService : ISubscriptionService
         _dbContext.Subscriptions.Update(hasSubscription);
         await _dbContext.SaveChangesAsync();
 
+        var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:send-unsubscription-email-queue"));
+
+        await endpoint.Send(new UnSubscribedEvent
+        {
+            To = _currentUser.GetEmail,
+            Subject = "Üyelik İptal Edildi.",
+            Body = $"Üyeliğiniz {DateTime.Now.ToString("dd/MM/yyyy")} tarihinde iptal edildi. Seni özleyeceğiz..."
+        });
 
         return AppResult<NoContentDto>.Success();
     }
