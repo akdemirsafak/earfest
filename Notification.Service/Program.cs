@@ -60,11 +60,11 @@ var host = Host.CreateDefaultBuilder(args)
                     e.ConfigureConsumer<PasswordChangedEmailEventConsumer>(context);
                 });
 
-                cfg.ReceiveEndpoint("send-subscribed-email-queue", e =>
+                cfg.ReceiveEndpoint("send-subscription-email-queue", e =>
                 {
                     e.ConfigureConsumer<SubscribedEventConsumer>(context);
                 });
-                cfg.ReceiveEndpoint("send-unsubscribed-email-queue", e =>
+                cfg.ReceiveEndpoint("send-unsubscription-email-queue", e =>
                 {
                     e.ConfigureConsumer<UnSubscribedEventConsumer>(context);
                 });

@@ -2,6 +2,7 @@ using System.Text;
 using earfest.Shared.Helpers;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using MassTransit;
 using MembershipService.DbContexts;
 using MembershipService.Mapping;
 using MembershipService.Services;
@@ -54,7 +55,22 @@ MappingConfig.RegisterMappings();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CreatePlanRequestValidator>();
 
+//////////////
 
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQ:ConnectionString"], h =>
+        {
+            h.Username(builder.Configuration["RabbitMQ:UserName"]!);
+            h.Password(builder.Configuration["RabbitMQ:Password"]!);
+        });
+    });
+
+});
+
+///////////////
 
 
 var app = builder.Build();
