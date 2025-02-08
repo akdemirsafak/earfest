@@ -40,7 +40,8 @@ public sealed class TicketService : ITicketService
 
     public async Task<AppResult<List<TicketResponse>>> GetAllAsync()
     {
-        var tickets = await _ticketRepository.GetAsync();
+        var tickets = await _ticketRepository.GetTicketsWithEvent();
+
         List<TicketResponse> response = tickets.Adapt<List<TicketResponse>>();
 
         return AppResult<List<TicketResponse>>.Success(response);
@@ -48,7 +49,7 @@ public sealed class TicketService : ITicketService
 
     public async Task<AppResult<TicketResponse>> GetByIdAsync(string id)
     {
-        var ticket = await _ticketRepository.GetByIdAsync(id);
+        var ticket = await _ticketRepository.GetTicketByIdWithEvent(id);
         var response = ticket.Adapt<TicketResponse>();
         return AppResult<TicketResponse>.Success(response);
     }
