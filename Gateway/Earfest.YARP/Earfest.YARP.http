@@ -1,0 +1,6 @@
+@Earfest.YARP_HostAddress = http://localhost:5138
+
+GET {{Earfest.YARP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
