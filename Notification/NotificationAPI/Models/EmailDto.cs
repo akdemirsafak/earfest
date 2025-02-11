@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace Notification.Service.Models;
+namespace NotificationAPI.Models;
 
 public class EmailDto
 {

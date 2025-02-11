@@ -2,7 +2,7 @@
 using System.Net.Mail;
 using Microsoft.Extensions.Options;
 
-namespace Notification.Service.Notifications;
+namespace NotificationAPI.Services;
 
 public class EmailService : IEmailService
 {

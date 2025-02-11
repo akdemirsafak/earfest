@@ -5,8 +5,6 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earfest.API", "earfest.API\earfest.API.csproj", "{43D74249-67FF-4E97-8169-E91686C88568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notification.Service", "Notification.Service\Notification.Service.csproj", "{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earfest.Shared", "earfest.Shared\earfest.Shared.csproj", "{6B653604-569D-47D0-AC73-D22F162C1DFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "earPass.API", "earPass\earPass.API\earPass.API.csproj", "{7A31F10E-8697-4EBF-83DB-6F65D0187012}"
@@ -25,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MembershipService", "Member
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Earfest.YARP", "Gateway\Earfest.YARP\Earfest.YARP.csproj", "{A135D2DE-0E14-4428-9F23-D174EDB25AC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationAPI", "Notification\NotificationAPI\NotificationAPI.csproj", "{7AABC30F-4581-49AF-BF28-3F9BB0E297EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +35,6 @@ Global
 		{43D74249-67FF-4E97-8169-E91686C88568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D74249-67FF-4E97-8169-E91686C88568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43D74249-67FF-4E97-8169-E91686C88568}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB5D4039-1795-412F-96E1-DF83D6AC4E9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B653604-569D-47D0-AC73-D22F162C1DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,6 +71,10 @@ Global
 		{A135D2DE-0E14-4428-9F23-D174EDB25AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A135D2DE-0E14-4428-9F23-D174EDB25AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A135D2DE-0E14-4428-9F23-D174EDB25AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AABC30F-4581-49AF-BF28-3F9BB0E297EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AABC30F-4581-49AF-BF28-3F9BB0E297EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AABC30F-4581-49AF-BF28-3F9BB0E297EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AABC30F-4581-49AF-BF28-3F9BB0E297EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

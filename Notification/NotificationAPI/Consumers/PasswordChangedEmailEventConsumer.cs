@@ -1,8 +1,8 @@
 ﻿using earfest.Shared.Events;
 using MassTransit;
-using Notification.Service.Notifications;
+using NotificationAPI.Services;
 
-namespace Notification.Service.Consumers;
+namespace NotificationAPI.Consumers;
 
 public class PasswordChangedEmailEventConsumer : IConsumer<PasswordChangedEmailEvent>
 {
