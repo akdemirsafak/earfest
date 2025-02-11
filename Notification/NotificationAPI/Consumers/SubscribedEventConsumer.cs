@@ -1,14 +1,14 @@
 ﻿using earfest.Shared.Events;
 using MassTransit;
-using Notification.Service.Notifications;
+using NotificationAPI.Services;
 
-namespace Notification.Service.Consumers;
+namespace NotificationAPI.Consumers;
 
-public class UnSubscribedEventConsumer : IConsumer<SubscribedEvent>
+public class SubscribedEventConsumer : IConsumer<SubscribedEvent>
 {
     private readonly IEmailService _emailService;
 
-    public UnSubscribedEventConsumer(IEmailService emailService)
+    public SubscribedEventConsumer(IEmailService emailService)
     {
         _emailService = emailService;
     }
