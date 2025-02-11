@@ -1,6 +1,9 @@
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using MassTransit;
 using NotificationAPI.Consumers;
 using NotificationAPI.Services;
+using NotificationAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -70,7 +73,8 @@ builder.Services.AddMassTransit(x =>
         });
     });
 });
-
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<SendEmailRequestValidator>();
 
 
 
